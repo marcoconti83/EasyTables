@@ -1,6 +1,6 @@
 # EasyTables
 
-EasyTables allows for an easy way of programmatically creating and setting up a `NSTableView` to display textual information backed by a collection of elements. It also allows for easy creation of contextual menus (right-click "pop-up" menu) and to easily react on selection, without using interface builder. The columns are also sortable by string comparison of the presented value.
+EasyTables allows for an easy way of programmatically creating and setting up a `NSTableView` to display textual information backed by a collection of elements. It also allows for easy creation of contextual menus (right-click "pop-up" menu) and to easily react on selection, without using interface builder. The columns are also sortable by string comparison on the displayed string.
 
 ## How to use
 It's as simple as defining the list of colums, what operations should appear in the contextual menu, and how to react to selection.
@@ -61,6 +61,7 @@ class ViewController: NSViewController {
 }
 ```
 
-
+The result of this setup is shown in the following screenshot:
+![Screenshot of table](https://github.com/marcoconti83/EasyTables/blob/master/docs/table-example.png?raw=true)
 
 
