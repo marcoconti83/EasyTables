@@ -20,21 +20,32 @@
 // SOFTWARE.
 //
 
-import Cocoa
+import Foundation
 
-@NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
-
-
-
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Insert code here to initialize your application
+extension NSTableView {
+    
+    /// Returns a table view inside a scroll view
+    public static func inScrollView() -> (NSScrollView, NSTableView) {
+        let container = NSScrollView()
+        let table = NSTableView()
+        container.documentView = table
+        container.hasVerticalScroller = true
+        container.hasHorizontalScroller = true
+        return (container, table)
     }
-
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
-    }
-
-
 }
 
+extension NSView {
+    
+    /// Creates the autolayout constraints needed for this view to fill the parent view,
+    /// and sets them on the parent as active
+    @discardableResult public func createConstraintsToFillParent(_ parent: NSView) -> [NSLayoutConstraint] {
+        self.translatesAutoresizingMaskIntoConstraints = false
+        let attributes: [NSLayoutAttribute] = [.top, .bottom, .trailing, .leading]
+        let constraints = attributes.map {
+            NSLayoutConstraint(item: parent, attribute: $0, relatedBy: .equal, toItem: self, attribute: $0, multiplier: 1, constant: 0) }
+        constraints.forEach { $0.isActive = true }
+        parent.addConstraints(constraints)
+        return constraints
+    }
+}
