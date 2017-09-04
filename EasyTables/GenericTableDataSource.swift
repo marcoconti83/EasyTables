@@ -146,11 +146,18 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
     }
         
     /// Select the item, if present. This causes a linear scan of the table (`O(n)`).
-    func select(item: Object) -> Bool {
-        guard let index = self.sortedObjects.index(where: { $0 == item }) else { return false }
-        self.table.deselectAll(nil)
-        self.table.selectRowIndexes(IndexSet(integersIn: index...index), byExtendingSelection: false)
-        return true
+    public func select(item: Object, extendSelection: Bool = false) {
+        guard let index = self.sortedObjects.index(where: { $0 == item }) else { return }
+        self.table.selectRowIndexes(IndexSet(integersIn: index...index), byExtendingSelection: extendSelection)
+    }
+    
+    /// Select the items, if present. 
+    /// This causes a linear scan of the table for each element in the sequence (`O(n*m)`).
+    public func select<SEQUENCE: Sequence>(items: SEQUENCE, extendSelection: Bool = false)
+        where SEQUENCE.Iterator.Element == Object
+    {
+        let indexes = items.flatMap { item in self.sortedObjects.index(where: { $0 == item }) }
+        self.table.selectRowIndexes(IndexSet(indexes), byExtendingSelection: extendSelection)
     }
     
     /// The items currently selected in the table

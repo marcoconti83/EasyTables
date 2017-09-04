@@ -75,6 +75,6 @@ class ViewController: NSViewController {
     }
     
     override func keyUp(with event: NSEvent) {
-        print("selected: \(self.configuration.dataSource.selectedItems)")
+        self.configuration.dataSource.select(items: ["Cod", "Action"])
     }
 }
