@@ -22,7 +22,7 @@
 
 import Foundation
 
-class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDelegate, NSTableViewDataSource {
+public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDelegate, NSTableViewDataSource {
     
     /// Objects in the table, sorted
     private(set) var sortedObjects: [Object] = []
@@ -84,11 +84,11 @@ class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDelegate, 
         return field
     }
     
-    func tableView(_ tableView: NSTableView, sortDescriptorsDidChange oldDescriptors: [NSSortDescriptor]) {
+    public func tableView(_ tableView: NSTableView, sortDescriptorsDidChange oldDescriptors: [NSSortDescriptor]) {
         self.resortItems()
     }
     
-    func tableViewSelectionDidChange(_ notification: Notification) {
+    public func tableViewSelectionDidChange(_ notification: Notification) {
         guard let table = notification.object as? NSTableView else { return }
         let indexes = table.selectedRowIndexes
         let objects = indexes.map { self.sortedObjects[$0] }
@@ -153,5 +153,10 @@ class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDelegate, 
         return true
     }
     
-    
+    /// The items currently selected in the table
+    public var selectedItems: [Object] {
+        return self.table.selectedRowIndexes.map {
+            self.sortedObjects[$0]
+        }
+    }
 }

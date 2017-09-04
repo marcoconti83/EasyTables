@@ -69,7 +69,7 @@ let TextCellViewIdentifier = "EasyDialogs_TextCellViewIdentifier"
 public class TableConfiguration<Object: Equatable> {
     
     /// Internal data source associated with the table
-    let dataSource: GenericTableDataSource<Object>
+    public let dataSource: GenericTableDataSource<Object>
     
     /// Creates a table configuration and applies it to a table
     /// The configuration needs to be retained as long as the table

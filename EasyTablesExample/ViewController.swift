@@ -73,4 +73,8 @@ class ViewController: NSViewController {
                 $0.forEach { print("Selected", $0) }
             })
     }
+    
+    override func keyUp(with event: NSEvent) {
+        print("selected: \(self.configuration.dataSource.selectedItems)")
+    }
 }
