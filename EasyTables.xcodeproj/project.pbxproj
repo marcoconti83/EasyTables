@@ -12,7 +12,7 @@
 		5415A6AF1F3F05D8000FF9BB /* ClosureControls.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5415A6AA1F3F002B000FF9BB /* ClosureControls.framework */; };
 		5415A6B11F3F05EB000FF9BB /* ClosureControls.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5415A6AA1F3F002B000FF9BB /* ClosureControls.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5415A6B61F3F0BA4000FF9BB /* EasyTables.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54CEC1C61F21D4DE00FA3BC6 /* EasyTables.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		5415A6B81F3F0FB5000FF9BB /* TableConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CEC20D1F21D6D900FA3BC6 /* TableConfiguration.swift */; };
+		5415A6B81F3F0FB5000FF9BB /* EasyTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CEC20D1F21D6D900FA3BC6 /* EasyTable.swift */; };
 		5415A6BD1F3F2396000FF9BB /* NSTableView+Easy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5415A6BC1F3F2396000FF9BB /* NSTableView+Easy.swift */; };
 		54CEC1D01F21D4DE00FA3BC6 /* EasyTables.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54CEC1C61F21D4DE00FA3BC6 /* EasyTables.framework */; };
 		54CEC1D51F21D4DE00FA3BC6 /* EasyTablesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CEC1D41F21D4DE00FA3BC6 /* EasyTablesTests.swift */; };
@@ -64,7 +64,7 @@
 		54CEC1F61F21D52500FA3BC6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		54CEC1F91F21D52500FA3BC6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		54CEC1FB1F21D52500FA3BC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		54CEC20D1F21D6D900FA3BC6 /* TableConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableConfiguration.swift; sourceTree = "<group>"; };
+		54CEC20D1F21D6D900FA3BC6 /* EasyTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasyTable.swift; sourceTree = "<group>"; };
 		54CEC20F1F21D85D00FA3BC6 /* GenericTableDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericTableDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -131,7 +131,7 @@
 			children = (
 				54CEC1C91F21D4DE00FA3BC6 /* EasyTables.h */,
 				54CEC1CA1F21D4DE00FA3BC6 /* Info.plist */,
-				54CEC20D1F21D6D900FA3BC6 /* TableConfiguration.swift */,
+				54CEC20D1F21D6D900FA3BC6 /* EasyTable.swift */,
 				54CEC20F1F21D85D00FA3BC6 /* GenericTableDataSource.swift */,
 				5415A6BC1F3F2396000FF9BB /* NSTableView+Easy.swift */,
 			);
@@ -308,7 +308,7 @@
 			files = (
 				5415A6BD1F3F2396000FF9BB /* NSTableView+Easy.swift in Sources */,
 				54CEC2101F21D85D00FA3BC6 /* GenericTableDataSource.swift in Sources */,
-				5415A6B81F3F0FB5000FF9BB /* TableConfiguration.swift in Sources */,
+				5415A6B81F3F0FB5000FF9BB /* EasyTable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

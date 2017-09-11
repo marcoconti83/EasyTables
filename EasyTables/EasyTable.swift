@@ -66,10 +66,14 @@ let TextCellViewIdentifier = "EasyDialogs_TextCellViewIdentifier"
 /// Table data source backed by an array
 /// At initialization, it is associated with a specific instance of NSTableView
 /// and will create the necessary columns on that NSTableView
-public class TableConfiguration<Object: Equatable> {
+public class EasyTableSource<Object: Equatable> {
     
     /// Internal data source associated with the table
     public let dataSource: GenericTableDataSource<Object>
+    
+    public var table: NSTableView {
+        return self.dataSource.table
+    }
     
     /// Creates a table configuration and applies it to a table
     /// The configuration needs to be retained as long as the table
@@ -79,17 +83,19 @@ public class TableConfiguration<Object: Equatable> {
     ///     column in the table is discarded
     /// - parameter contextMenuOperations: entries of the contextual menu to display
     ///     when right-clicking on a table row
-    /// - parameter table: the table to apply this configuration to
+    /// - parameter table: the table to apply this configuration to. If not specified, 
+    ///     will create a new one
     /// - allowMultipleSelection: whether multiple rows can be selected in the table
     
     public init<Objects: Collection>(initialObjects: Objects,
                 columns: [ColumnDefinition<Object>],
                 contextMenuOperations: [ObjectOperation<Object>],
-                table: NSTableView,
+                table: NSTableView? = nil,
                 allowMultipleSelection: Bool,
                 selectionCallback: @escaping ([Object])->(Void))
         where Objects.Iterator.Element == Object
     {
+        let table = table ?? NSTableView()
         self.dataSource = GenericTableDataSource(
             initialObjects: Array(initialObjects),
             columns: columns,
@@ -107,8 +113,8 @@ public class TableConfiguration<Object: Equatable> {
             columnsLookup[$0.name.lowercased()] = $0
         }
         
-        TableConfiguration.setupTable(table, columns: columns, multiSelection: allowMultipleSelection)
-        self.setupMenu(for: table, operations: contextMenuOperations)
+        self.setupTable(columns: columns, multiSelection: allowMultipleSelection)
+        self.setupMenu(operations: contextMenuOperations)
     }
     
     /// Content of the table
@@ -122,17 +128,16 @@ public class TableConfiguration<Object: Equatable> {
     }
 }
 
-extension TableConfiguration {
+extension EasyTableSource {
 
     /// Sets up table columns and selection methods
-    fileprivate static func setupTable(
-        _ table: NSTableView,
+    fileprivate func setupTable(
         columns: [ColumnDefinition<Object>],
         multiSelection: Bool)
     {
-        let preColumns = table.tableColumns
+        let preColumns = self.table.tableColumns
         preColumns.forEach {
-            table.removeTableColumn($0)
+            self.table.removeTableColumn($0)
         }
                 
         columns.forEach { cdef in
@@ -150,19 +155,18 @@ extension TableConfiguration {
             table.addTableColumn(column)
         }
         
-        table.allowsEmptySelection = true
-        table.allowsColumnSelection = false
-        table.allowsTypeSelect = true
-        table.allowsMultipleSelection = multiSelection
+        self.table.allowsEmptySelection = true
+        self.table.allowsColumnSelection = false
+        self.table.allowsTypeSelect = true
+        self.table.allowsMultipleSelection = multiSelection
     }
     
     /// Sets up the contextual menu for the table
     fileprivate func setupMenu(
-        for table: NSTableView,
         operations: [ObjectOperation<Object>]
         ) {
         guard !operations.isEmpty else {
-            table.menu = nil
+            self.table.menu = nil
             return
         }
         let menu = NSMenu()
@@ -176,7 +180,7 @@ extension TableConfiguration {
             menu.addItem(item)
             item.isEnabled = true
         }
-        table.menu = menu
+        self.table.menu = menu
     }
     
     /// Objects that should be affected by a contextual operation

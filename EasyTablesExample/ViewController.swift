@@ -26,7 +26,7 @@ import EasyTables
 /// An example of how to use `TableConfiguration`
 class ViewController: NSViewController {
 
-    var configuration: TableConfiguration<String>!
+    var tableSource: EasyTableSource<String>!
     
     var objects = Set(["Action", "Engineering", "Cod", "Doodle"])
     
@@ -38,7 +38,7 @@ class ViewController: NSViewController {
         
         scroll.createConstraintsToFillParent(self.view)
         
-        self.configuration = TableConfiguration(
+        self.tableSource = EasyTableSource(
             initialObjects: objects,
             columns: [
                 ColumnDefinition("Word", { $0 }),
@@ -52,7 +52,7 @@ class ViewController: NSViewController {
                     items.forEach {
                         self.objects.remove($0)
                     }
-                    self.configuration.setContent(self.objects) // changing the content automatically updates the table
+                    self.tableSource.setContent(self.objects) // changing the content automatically updates the table
                 }),
                 // Uppercase the string(s)
                 ObjectOperation(label: "Convert to uppercase", action: {
@@ -62,7 +62,7 @@ class ViewController: NSViewController {
                         self.objects.remove($0)
                         self.objects.insert($0.uppercased())
                     }
-                    self.configuration.setContent(self.objects) // changing the content automatically updates the table
+                    self.tableSource.setContent(self.objects) // changing the content automatically updates the table
                 })
             ],
             table: table,
@@ -75,6 +75,6 @@ class ViewController: NSViewController {
     }
     
     override func keyUp(with event: NSEvent) {
-        self.configuration.dataSource.select(items: ["Cod", "Action"])
+        self.tableSource.dataSource.select(items: ["Cod", "Action"])
     }
 }
