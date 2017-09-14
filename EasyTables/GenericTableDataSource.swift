@@ -90,7 +90,7 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
             field.drawsBackground = false
             return field
             }()
-        field.stringValue = "\(column.stringToDisplay(entry))"
+        field.stringValue = "\(column.value(entry))"
         field.isEditable = false        
         return field
     }
@@ -143,7 +143,7 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
                 else { return nil }
             let ascending = descriptor.ascending
             return { v1, v2 -> ComparisonResult in
-                let comparison = column.comparison.compare(lhs: v1, rhs: v2)
+                let comparison = column.comparison(v1, v2)
                 if ascending {
                     return comparison.inverted
                 }

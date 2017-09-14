@@ -111,9 +111,9 @@ extension EasyTableSource {
             column.minWidth = cdef.width.width
             column.maxWidth = cdef.width.width * 2
             column.sortDescriptorPrototype = NSSortDescriptor(key: column.title, ascending: false) {
-                let value1 = cdef.stringToDisplay($0.0 as! Object)
-                let value2 = cdef.stringToDisplay($0.1 as! Object)
-                return value1.compare(value2)
+                let value1 = cdef.value($0.0 as! Object)
+                let value2 = cdef.value($0.1 as! Object)
+                return "\(value1)".compare("\(value2)")
             }
             table.addTableColumn(column)
         }

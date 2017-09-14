@@ -66,8 +66,8 @@ class TableViewController: NSViewController {
         self.tableSource = EasyTableSource(
             initialObjects: self.objects,
             columns: [
-                ColumnDefinition("Word", { $0 }),
-                ColumnDefinition("Length", { "\($0.characters.count)" }),
+                ColumnDefinition(name: "Word", value: { $0 }),
+                ColumnDefinition(name: "Length", value: { $0.characters.count }),
             ],
             contextMenuOperations: [
                 // Remove object from the table

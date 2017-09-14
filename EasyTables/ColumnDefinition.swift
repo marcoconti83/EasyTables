@@ -28,7 +28,7 @@ public enum ColumnWidth {
     case M
     case L
     case XL
-    case custom(size: CGFloat)
+    case custom(CGFloat)
     
     var width: CGFloat {
         switch self {
@@ -50,63 +50,42 @@ public enum ColumnWidth {
 public struct ColumnDefinition<Object> {
     
     /// Name of the column
-    let name: String
-    /// Derive the string to display from the object
-    let stringToDisplay: (Object)->(String)
+    public var name: String
+    /// Derive the value to display from the object
+    public var value: (Object)->(Any)
     /// Comparison operator
-    let comparison: Comparison<Object>
+    public var comparison: (Object, Object)->ComparisonResult
     /// Witdh of the column
-    let width: ColumnWidth
+    public var width: ColumnWidth
+    /// Alignment
+    public var alignment: NSTextAlignment
     
-    public init(_ name: String,
+    
+    public init(name: String,
                 width: ColumnWidth = .M,
-                comparison: Comparison<Object>? = nil,
-                _ stringToDisplay: @escaping (Object)->(String)
+                alignment: NSTextAlignment = .left,
+                comparison: ((Object, Object)->ComparisonResult)? = nil,
+                value: @escaping (Object)->(Any)
                 ) {
         self.name = name
-        self.stringToDisplay = stringToDisplay
+        self.value = value
         self.width = width
-        self.comparison = comparison ?? ValueComparison({ obj in
-            return stringToDisplay(obj)
-        })
-    }
-}
-
-/// Compare two objects
-public class Comparison<Object> {
-    
-    /// Sort two values
-    public func compare(lhs: Any, rhs: Any) -> ComparisonResult {
-        return String(describing: lhs).compare(String(describing: rhs))
-    }
-}
-
-/// A comparison performed by converting the object into a comparable value
-public class ValueComparison<Object, SortingValue: Comparable>: Comparison<Object> {
-    
-    /// Derive the sorting value from the object
-    let sortableValue: (Object)->(SortingValue)
-    
-    public init(_ sortableValue: @escaping (Object)->(SortingValue)) {
-        self.sortableValue = sortableValue
-    }
-    
-    override public func compare(lhs: Any, rhs: Any) -> ComparisonResult {
-        guard let left = lhs as? Object,
-            let right = rhs as? Object
-            else { return ComparisonResult.orderedSame }
-        let leftValue = self.sortableValue(left)
-        let rightValue = self.sortableValue(right)
-        
-        switch (leftValue, rightValue) {
-        case let (l, r) where l == r:
-            return ComparisonResult.orderedSame
-        case let (l, r) where l > r:
-            return ComparisonResult.orderedDescending
-        case let (l, r) where l < r:
-            return ComparisonResult.orderedAscending
-        default:
-            return ComparisonResult.orderedSame
+        self.alignment = alignment
+        self.comparison = comparison ?? { lhs, rhs in
+            return bestEffortComparison(lhs: value(lhs), rhs: value(rhs))
         }
     }
 }
+
+/// A best effort at sorting two values of which we don't know the type
+private func bestEffortComparison(lhs: Any, rhs: Any) -> ComparisonResult {
+    switch (lhs, rhs) {
+    case (let n1 as NSNumber, let n2 as NSNumber):
+        return n1.compare(n2)
+    case (let s1 as String, let s2 as String):
+        return s1.compare(s2)
+    default:
+        return "\(lhs)".compare("\(rhs)")
+    }
+}
+
