@@ -23,43 +23,6 @@
 import Cocoa
 import ClosureControls
 
-public enum ColumnWidth {
-    case S
-    case M
-    case L
-    case XL
-    case custom(size: CGFloat)
-    
-    var width: CGFloat {
-        switch self {
-        case .S:
-            return 25
-        case .M:
-            return 150
-        case .L:
-            return 300
-        case .XL:
-            return 500
-        case .custom(let size):
-            return size
-        }
-    }
-}
-
-/// Definition of how to display a column in a NSTableView
-public struct ColumnDefinition<Object> {
-    
-    let name: String
-    let stringToDisplay: (Object)->(String)
-    let width: ColumnWidth
-    
-    public init(_ name: String, width: ColumnWidth = .M, _ stringToDisplay: @escaping (Object)->(String)) {
-        self.name = name
-        self.stringToDisplay = stringToDisplay
-        self.width = width
-    }
-}
-
 /// Identifier for a text view cell
 let TextCellViewIdentifier = "EasyDialogs_TextCellViewIdentifier"
 

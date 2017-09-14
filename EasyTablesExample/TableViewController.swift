@@ -22,24 +22,49 @@
 
 import Cocoa
 import EasyTables
+import ClosureControls
+import Cartography
 
 /// An example of how to use `TableConfiguration`
-class ViewController: NSViewController {
+class TableViewController: NSViewController {
 
-    var tableSource: EasyTableSource<String>!
+    private var tableSource: EasyTableSource<String>!
     
-    var objects = Set(["Action", "Engineering", "Cod", "Doodle"])
+    private static let fishes = ["Cod", "Shark"]
+    private static let items = ["Hammer", "Doodle", "Speaker"]
+    private var objects = Set(fishes + items)
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let selectButton = ClosureButton(label: "Select all Fish") { _ in
+            self.tableSource.dataSource.select(items: TableViewController.fishes)
+        }
+        
+        let filterButton = ClosureButton(label: "Filter out non-fish") { btn in
+            guard let button = btn as? NSButton else { return }
+            switch button.state {
+            case NSOnState:
+                self.tableSource.dataSource.filter = { TableViewController.fishes.contains($0) }
+            case NSOffState:
+                self.tableSource.dataSource.filter = nil
+            default:
+                return
+            }
+        }
+        filterButton.setButtonType(.switch)
+        
         let (scroll, table) = NSTableView.inScrollView()
-        self.view.addSubview(scroll)
+        self.createLayoutConstraints(table: scroll, button1: selectButton, button2: filterButton)
         
-        scroll.createConstraintsToFillParent(self.view)
-        
+        self.createTableSource(for: table)
+
+    }
+    
+    private func createTableSource(for table: NSTableView) {
+
         self.tableSource = EasyTableSource(
-            initialObjects: objects,
+            initialObjects: self.objects,
             columns: [
                 ColumnDefinition("Word", { $0 }),
                 ColumnDefinition("Length", { "\($0.characters.count)" }),
@@ -74,7 +99,28 @@ class ViewController: NSViewController {
             })
     }
     
-    override func keyUp(with event: NSEvent) {
-        self.tableSource.dataSource.select(items: ["Cod", "Action"])
+    private func createLayoutConstraints(table: NSView, button1: NSView, button2: NSView) {
+        self.view.addSubview(table)
+        self.view.addSubview(button1)
+        self.view.addSubview(button2)
+        
+        let space: CGFloat = 10
+        constrain(table, button1, button2, self.view) { table, b1, b2, frame in
+            table.bottom == frame.bottom - space
+            table.left == frame.left + space
+            table.right == frame.right - space
+            
+            b1.leading == frame.leading + space
+            b1.trailing == b2.leading - space
+            b2.trailing == frame.trailing - space
+            b1.top == b2.top
+            b1.top == frame.top + space
+            b1.bottom == b2.bottom
+            b1.width == b2.width
+            
+            table.top == b1.bottom + space
+        }
     }
+    
 }
+

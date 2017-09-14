@@ -27,6 +27,9 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
     /// Objects in the table, sorted
     private(set) var sortedObjects: [Object] = []
     
+    /// Initial objects
+    private(set) var originalObjects: [Object] = []
+    
     /// Table associated with this data source
     let table: NSTableView
     
@@ -36,6 +39,13 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
     /// Called when the selection changes
     let selectionCallback: ([Object])->(Void)
     
+    /// Currently applied filter
+    public var filter: ((Object)->Bool)? {
+        didSet {
+            self.recalculateSource()
+        }
+    }
+    
     init(initialObjects: [Object],
          columns: [ColumnDefinition<Object>],
          contextMenuOperations: [ObjectOperation<Object>] = [],
@@ -43,7 +53,7 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
          allowMultipleSelection: Bool,
          selectionCallback: @escaping ([Object])->(Void) = { _ in }
         ) {
-        self.sortedObjects = initialObjects
+        self.filter = nil
         self.table = table
         var columnsLookup: [String: ColumnDefinition<Object>] = [:]
         columns.forEach {
@@ -52,6 +62,7 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
         self.columns = columnsLookup
         self.selectionCallback = selectionCallback
         super.init()
+        self.update(newObjects: initialObjects)
     }
     
     public func numberOfRows(in tableView: NSTableView) -> Int {
@@ -86,6 +97,7 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
     
     public func tableView(_ tableView: NSTableView, sortDescriptorsDidChange oldDescriptors: [NSSortDescriptor]) {
         self.resortItems()
+        self.table.reloadData()
     }
     
     public func tableViewSelectionDidChange(_ notification: Notification) {
@@ -95,14 +107,26 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
         self.selectionCallback(objects)
     }
     
+    /// Update the objects, re-apply filter and sorting
     func update(newObjects: [Object]) {
-        self.sortedObjects = newObjects
-        self.resortItems()
-        self.refreshTable()
+        self.originalObjects = newObjects
+        self.recalculateSource()
     }
     
-    private func refreshTable() {
+    /// Refilter original objects then sort them
+    private func recalculateSource() {
+        self.filterItems()
+        self.resortItems()
         self.table.reloadData()
+    }
+    
+    /// Filter the sorted objects
+    private func filterItems() {
+        if let filter = self.filter {
+            self.sortedObjects = self.originalObjects.filter(filter)
+        } else {
+            self.sortedObjects = self.originalObjects
+        }
     }
     
     /// Returns the object at the given row
@@ -119,9 +143,7 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
                 else { return nil }
             let ascending = descriptor.ascending
             return { v1, v2 -> ComparisonResult in
-                let s1 = column.stringToDisplay(v1).lowercased()
-                let s2 = column.stringToDisplay(v2).lowercased()
-                let comparison = s1.compare(s2)
+                let comparison = column.comparison.compare(lhs: v1, rhs: v2)
                 if ascending {
                     return comparison.inverted
                 }
@@ -142,7 +164,6 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
             }
             return true
         }
-        self.refreshTable()
     }
         
     /// Select the item, if present. This causes a linear scan of the table (`O(n)`).

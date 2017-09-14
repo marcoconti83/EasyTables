@@ -7,18 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5404033A1F67B669000A7C79 /* ColumnDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540403391F67B669000A7C79 /* ColumnDefinition.swift */; };
 		5415A6AB1F3F002B000FF9BB /* ClosureControls.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5415A6AA1F3F002B000FF9BB /* ClosureControls.framework */; };
 		5415A6AE1F3F052A000FF9BB /* EasyTables.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54CEC1C61F21D4DE00FA3BC6 /* EasyTables.framework */; };
 		5415A6AF1F3F05D8000FF9BB /* ClosureControls.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5415A6AA1F3F002B000FF9BB /* ClosureControls.framework */; };
 		5415A6B11F3F05EB000FF9BB /* ClosureControls.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5415A6AA1F3F002B000FF9BB /* ClosureControls.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5415A6B61F3F0BA4000FF9BB /* EasyTables.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54CEC1C61F21D4DE00FA3BC6 /* EasyTables.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		5415A6B81F3F0FB5000FF9BB /* EasyTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CEC20D1F21D6D900FA3BC6 /* EasyTable.swift */; };
+		5415A6B81F3F0FB5000FF9BB /* EasyTableSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CEC20D1F21D6D900FA3BC6 /* EasyTableSource.swift */; };
 		5415A6BD1F3F2396000FF9BB /* NSTableView+Easy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5415A6BC1F3F2396000FF9BB /* NSTableView+Easy.swift */; };
+		542578E81F6B1BD700FE6DA8 /* Cartography.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 542578E61F6B1BD300FE6DA8 /* Cartography.framework */; };
+		542578E91F6B1CA500FE6DA8 /* Cartography.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 542578E61F6B1BD300FE6DA8 /* Cartography.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		54CEC1D01F21D4DE00FA3BC6 /* EasyTables.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54CEC1C61F21D4DE00FA3BC6 /* EasyTables.framework */; };
 		54CEC1D51F21D4DE00FA3BC6 /* EasyTablesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CEC1D41F21D4DE00FA3BC6 /* EasyTablesTests.swift */; };
 		54CEC1D71F21D4DE00FA3BC6 /* EasyTables.h in Headers */ = {isa = PBXBuildFile; fileRef = 54CEC1C91F21D4DE00FA3BC6 /* EasyTables.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		54CEC1F31F21D52500FA3BC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CEC1F21F21D52500FA3BC6 /* AppDelegate.swift */; };
-		54CEC1F51F21D52500FA3BC6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CEC1F41F21D52500FA3BC6 /* ViewController.swift */; };
+		54CEC1F51F21D52500FA3BC6 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CEC1F41F21D52500FA3BC6 /* TableViewController.swift */; };
 		54CEC1F71F21D52500FA3BC6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54CEC1F61F21D52500FA3BC6 /* Assets.xcassets */; };
 		54CEC1FA1F21D52500FA3BC6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54CEC1F81F21D52500FA3BC6 /* Main.storyboard */; };
 		54CEC2101F21D85D00FA3BC6 /* GenericTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CEC20F1F21D85D00FA3BC6 /* GenericTableDataSource.swift */; };
@@ -41,6 +44,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				542578E91F6B1CA500FE6DA8 /* Cartography.framework in Embed Frameworks */,
 				5415A6B61F3F0BA4000FF9BB /* EasyTables.framework in Embed Frameworks */,
 				5415A6B11F3F05EB000FF9BB /* ClosureControls.framework in Embed Frameworks */,
 			);
@@ -50,8 +54,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		540403391F67B669000A7C79 /* ColumnDefinition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColumnDefinition.swift; sourceTree = "<group>"; };
 		5415A6AA1F3F002B000FF9BB /* ClosureControls.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ClosureControls.framework; path = Carthage/Build/Mac/ClosureControls.framework; sourceTree = "<group>"; };
 		5415A6BC1F3F2396000FF9BB /* NSTableView+Easy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSTableView+Easy.swift"; sourceTree = "<group>"; };
+		542578E21F6B18D800FE6DA8 /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
+		542578E31F6B18D800FE6DA8 /* Cartfile.resolved */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile.resolved; sourceTree = "<group>"; };
+		542578E61F6B1BD300FE6DA8 /* Cartography.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cartography.framework; path = Carthage/Build/Mac/Cartography.framework; sourceTree = "<group>"; };
 		54CEC1C61F21D4DE00FA3BC6 /* EasyTables.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EasyTables.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		54CEC1C91F21D4DE00FA3BC6 /* EasyTables.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EasyTables.h; sourceTree = "<group>"; };
 		54CEC1CA1F21D4DE00FA3BC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -60,11 +68,11 @@
 		54CEC1D61F21D4DE00FA3BC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		54CEC1F01F21D52500FA3BC6 /* EasyTablesExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyTablesExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54CEC1F21F21D52500FA3BC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		54CEC1F41F21D52500FA3BC6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		54CEC1F41F21D52500FA3BC6 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		54CEC1F61F21D52500FA3BC6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		54CEC1F91F21D52500FA3BC6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		54CEC1FB1F21D52500FA3BC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		54CEC20D1F21D6D900FA3BC6 /* EasyTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasyTable.swift; sourceTree = "<group>"; };
+		54CEC20D1F21D6D900FA3BC6 /* EasyTableSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasyTableSource.swift; sourceTree = "<group>"; };
 		54CEC20F1F21D85D00FA3BC6 /* GenericTableDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericTableDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -91,6 +99,7 @@
 			files = (
 				5415A6AE1F3F052A000FF9BB /* EasyTables.framework in Frameworks */,
 				5415A6AF1F3F05D8000FF9BB /* ClosureControls.framework in Frameworks */,
+				542578E81F6B1BD700FE6DA8 /* Cartography.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,6 +109,7 @@
 		5415A6A91F3F0020000FF9BB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				542578E61F6B1BD300FE6DA8 /* Cartography.framework */,
 				5415A6AA1F3F002B000FF9BB /* ClosureControls.framework */,
 			);
 			name = Frameworks;
@@ -108,6 +118,8 @@
 		54CEC1BC1F21D4DE00FA3BC6 = {
 			isa = PBXGroup;
 			children = (
+				542578E21F6B18D800FE6DA8 /* Cartfile */,
+				542578E31F6B18D800FE6DA8 /* Cartfile.resolved */,
 				5415A6A91F3F0020000FF9BB /* Frameworks */,
 				54CEC1C81F21D4DE00FA3BC6 /* EasyTables */,
 				54CEC1D31F21D4DE00FA3BC6 /* EasyTablesTests */,
@@ -131,7 +143,8 @@
 			children = (
 				54CEC1C91F21D4DE00FA3BC6 /* EasyTables.h */,
 				54CEC1CA1F21D4DE00FA3BC6 /* Info.plist */,
-				54CEC20D1F21D6D900FA3BC6 /* EasyTable.swift */,
+				54CEC20D1F21D6D900FA3BC6 /* EasyTableSource.swift */,
+				540403391F67B669000A7C79 /* ColumnDefinition.swift */,
 				54CEC20F1F21D85D00FA3BC6 /* GenericTableDataSource.swift */,
 				5415A6BC1F3F2396000FF9BB /* NSTableView+Easy.swift */,
 			);
@@ -151,7 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				54CEC1F21F21D52500FA3BC6 /* AppDelegate.swift */,
-				54CEC1F41F21D52500FA3BC6 /* ViewController.swift */,
+				54CEC1F41F21D52500FA3BC6 /* TableViewController.swift */,
 				54CEC1F61F21D52500FA3BC6 /* Assets.xcassets */,
 				54CEC1F81F21D52500FA3BC6 /* Main.storyboard */,
 				54CEC1FB1F21D52500FA3BC6 /* Info.plist */,
@@ -306,9 +319,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5404033A1F67B669000A7C79 /* ColumnDefinition.swift in Sources */,
 				5415A6BD1F3F2396000FF9BB /* NSTableView+Easy.swift in Sources */,
 				54CEC2101F21D85D00FA3BC6 /* GenericTableDataSource.swift in Sources */,
-				5415A6B81F3F0FB5000FF9BB /* EasyTable.swift in Sources */,
+				5415A6B81F3F0FB5000FF9BB /* EasyTableSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,7 +338,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				54CEC1F51F21D52500FA3BC6 /* ViewController.swift in Sources */,
+				54CEC1F51F21D52500FA3BC6 /* TableViewController.swift in Sources */,
 				54CEC1F31F21D52500FA3BC6 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
