@@ -101,16 +101,14 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
     }
     
     public func tableViewSelectionDidChange(_ notification: Notification) {
-        guard let table = notification.object as? NSTableView else { return }
-        let indexes = table.selectedRowIndexes
-        let objects = indexes.map { self.sortedObjects[$0] }
-        self.selectionCallback(objects)
+        self.selectionCallback(self.selectedItems)
     }
     
     /// Update the objects, re-apply filter and sorting
     func update(newObjects: [Object]) {
         self.originalObjects = newObjects
         self.recalculateSource()
+        self.selectionCallback(self.selectedItems)
     }
     
     /// Refilter original objects then sort them
