@@ -44,9 +44,9 @@ class TableViewController: NSViewController {
         let filterButton = ClosureButton(label: "Filter out non-fish") { btn in
             guard let button = btn as? NSButton else { return }
             switch button.state {
-            case NSOnState:
+            case .on:
                 self.tableSource.dataSource.filter = { TableViewController.fishes.contains($0) }
-            case NSOffState:
+            case .off:
                 self.tableSource.dataSource.filter = nil
             default:
                 return

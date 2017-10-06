@@ -41,7 +41,7 @@ extension NSView {
     /// and sets them on the parent as active
     @discardableResult public func createConstraintsToFillParent(_ parent: NSView) -> [NSLayoutConstraint] {
         self.translatesAutoresizingMaskIntoConstraints = false
-        let attributes: [NSLayoutAttribute] = [.top, .bottom, .trailing, .leading]
+        let attributes: [NSLayoutConstraint.Attribute] = [.top, .bottom, .trailing, .leading]
         let constraints = attributes.map {
             NSLayoutConstraint(item: parent, attribute: $0, relatedBy: .equal, toItem: self, attribute: $0, multiplier: 1, constant: 0) }
         constraints.forEach { $0.isActive = true }

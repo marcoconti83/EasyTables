@@ -106,13 +106,13 @@ extension EasyTableSource {
         columns.forEach { cdef in
             let column = NSTableColumn()
             column.title = cdef.name
-            column.identifier = cdef.name.lowercased()
+            column.identifier = NSUserInterfaceItemIdentifier(rawValue: cdef.name.lowercased())
             column.isEditable = false
             column.minWidth = cdef.width.width
             column.maxWidth = cdef.width.width * 2
             column.sortDescriptorPrototype = NSSortDescriptor(key: column.title, ascending: false) {
-                let value1 = cdef.value($0.0 as! Object)
-                let value2 = cdef.value($0.1 as! Object)
+                let value1 = cdef.value($0 as! Object)
+                let value2 = cdef.value($1 as! Object)
                 return "\(value1)".compare("\(value2)")
             }
             table.addTableColumn(column)

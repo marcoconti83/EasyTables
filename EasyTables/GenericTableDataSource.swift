@@ -74,7 +74,7 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
         guard
             let entry = self.value(row: row),
             let tableColumn = tableColumn,
-            let column = columns[tableColumn.identifier]
+            let column = columns[tableColumn.identifier.rawValue]
             else {
                 return nil
         }
@@ -82,7 +82,7 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
         let cellIdentifier = tableColumn.identifier
         // TODO: use reusable views that are registered on the table with an identifier.
         // I could not get them to register when in a framework though, it fails to find the xib
-        let field = (tableView.make(withIdentifier: cellIdentifier, owner: self) as? NSTextField) ?? {
+        let field = (tableView.makeView(withIdentifier: cellIdentifier, owner: self) as? NSTextField) ?? {
             let field = NSTextField()
             field.identifier = cellIdentifier
             field.isBezeled = false
