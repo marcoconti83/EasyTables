@@ -12,7 +12,7 @@ import EasyTables
 
 class ViewController: NSViewController {
 
-    var configuration: TableConfiguration<String>!
+    var configuration: EasyTableSource<String>!
     
     var objects = Set(["Action", "Engineering", "Cod", "Doodle"])
     
@@ -23,7 +23,7 @@ class ViewController: NSViewController {
         self.view.addSubview(scroll)
         scroll.createConstraintsToFillParent(self.view)
         
-        self.configuration = TableConfiguration(
+        self.configuration = EasyTableSource(
             initialObjects: objects,
             columns: [
                 ColumnDefinition("Word", { $0 }),
