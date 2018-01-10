@@ -6,7 +6,7 @@ EasyTables allows for an easy way of programmatically creating and setting up a 
 It's as simple as defining the list of colums, what operations should appear in the contextual menu, and how to react to selection.
 
 Here's an example, that uses no interface builder and no XIB to programmatically create a `NSTableView`, populate its values and define some operations:
-```
+```swift
 import Cocoa
 import EasyTables
 
