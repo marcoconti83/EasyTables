@@ -62,12 +62,15 @@ class TableViewController: NSViewController {
     }
     
     private func createTableSource(for table: NSTableView) {
-
+        let imageDirectory = RandomImageDirectory()
         self.tableSource = EasyTableSource(
             initialObjects: self.objects,
             columns: [
-                ColumnDefinition(name: "Word", value: { $0 }),
-                ColumnDefinition(name: "Length", value: { $0.characters.count }),
+                ColumnDefinition(name: "Word", value: { $0.boldAttributed }),
+                ColumnDefinition(name: "Length", width: .S, value: { $0.characters.count }),
+                ColumnDefinition(name: "Image", width: .S, value: { imageDirectory.image(for: $0) as Any } ),
+                ColumnDefinition(name: "Starts with C", width: .S, value: { $0.starts(with: "C") }),
+                ColumnDefinition(name: "Control", width: .S, value: { let b = NSButton(); b.title = $0; return b })
             ],
             contextMenuOperations: [
                 // Remove object from the table
@@ -95,7 +98,7 @@ class TableViewController: NSViewController {
             selectionCallback: {
                 /// Just print out something when selected
                 print("Selection changed:")
-                $0.forEach { print("Selected", $0) }
+                $0.forEach { print("\t", $0) }
             })
     }
     
@@ -124,3 +127,10 @@ class TableViewController: NSViewController {
     
 }
 
+extension String {
+    
+    var boldAttributed: NSAttributedString {
+        let font = NSFont.boldSystemFont(ofSize: 0)
+        return NSAttributedString(string: self, attributes: [NSAttributedStringKey.font: font])
+    }
+}

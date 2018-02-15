@@ -80,8 +80,26 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
         }
         
         let cellIdentifier = tableColumn.identifier
+        let value = column.value(entry)
+        return self.viewForValue(value, in: tableView, cellIdentifier: cellIdentifier)
+    }
+    
+    /// Returns the best view to represent an item
+    private func viewForValue(_ value: Any,
+                              in tableView: NSTableView,
+                              cellIdentifier: NSUserInterfaceItemIdentifier
+                              ) -> NSView
+    {
         // TODO: use reusable views that are registered on the table with an identifier.
         // I could not get them to register when in a framework though, it fails to find the xib
+        if let viewValue = value as? NSView {
+            return viewValue
+        }
+        if let imageValue = value as? NSImage {
+            let imageView = NSImageView()
+            imageView.image = imageValue
+            return imageView
+        }
         let field = (tableView.makeView(withIdentifier: cellIdentifier, owner: self) as? NSTextField) ?? {
             let field = NSTextField()
             field.identifier = cellIdentifier
@@ -90,8 +108,14 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
             field.drawsBackground = false
             return field
             }()
-        field.stringValue = "\(column.value(entry))"
-        field.isEditable = false        
+        if let attributed = value as? NSAttributedString {
+            field.attributedStringValue = attributed
+        } else if let bool = value as? Bool {
+            field.stringValue = bool ? "✅" : "❌"
+        } else {
+            field.stringValue = "\(value)" //String(describing: value)
+        }
+        field.isEditable = false
         return field
     }
     

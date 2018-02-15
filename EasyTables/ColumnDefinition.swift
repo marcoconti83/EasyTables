@@ -77,6 +77,7 @@ public struct ColumnDefinition<Object> {
     }
 }
 
+
 /// A best effort at sorting two values of which we don't know the type
 private func bestEffortComparison(lhs: Any, rhs: Any) -> ComparisonResult {
     switch (lhs, rhs) {
