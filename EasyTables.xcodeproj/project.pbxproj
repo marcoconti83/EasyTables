@@ -30,6 +30,7 @@
 		54DBCE9120363BF0001D86DF /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 54DBCE8D20363BF0001D86DF /* 1.jpg */; };
 		54DBCE9220363BF0001D86DF /* 3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 54DBCE8E20363BF0001D86DF /* 3.jpg */; };
 		54DBCE9420363C25001D86DF /* RandomImageDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DBCE9320363C25001D86DF /* RandomImageDirectory.swift */; };
+		54DBCE962036468A001D86DF /* ObjectOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DBCE952036468A001D86DF /* ObjectOperation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +85,7 @@
 		54DBCE8D20363BF0001D86DF /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
 		54DBCE8E20363BF0001D86DF /* 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.jpg; sourceTree = "<group>"; };
 		54DBCE9320363C25001D86DF /* RandomImageDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomImageDirectory.swift; sourceTree = "<group>"; };
+		54DBCE952036468A001D86DF /* ObjectOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectOperation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +156,7 @@
 				54CEC1C91F21D4DE00FA3BC6 /* EasyTables.h */,
 				54CEC1CA1F21D4DE00FA3BC6 /* Info.plist */,
 				54CEC20D1F21D6D900FA3BC6 /* EasyTableSource.swift */,
+				54DBCE952036468A001D86DF /* ObjectOperation.swift */,
 				540403391F67B669000A7C79 /* ColumnDefinition.swift */,
 				54CEC20F1F21D85D00FA3BC6 /* GenericTableDataSource.swift */,
 				5415A6BC1F3F2396000FF9BB /* NSTableView+Easy.swift */,
@@ -347,6 +350,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54DBCE962036468A001D86DF /* ObjectOperation.swift in Sources */,
 				5404033A1F67B669000A7C79 /* ColumnDefinition.swift in Sources */,
 				5415A6BD1F3F2396000FF9BB /* NSTableView+Easy.swift in Sources */,
 				54CEC2101F21D85D00FA3BC6 /* GenericTableDataSource.swift in Sources */,

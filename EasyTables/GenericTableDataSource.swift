@@ -50,7 +50,6 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
          columns: [ColumnDefinition<Object>],
          contextMenuOperations: [ObjectOperation<Object>] = [],
          table: NSTableView,
-         allowMultipleSelection: Bool,
          selectionCallback: @escaping ([Object])->(Void) = { _ in }
         ) {
         self.filter = nil

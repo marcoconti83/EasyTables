@@ -48,7 +48,7 @@ public class EasyTableSource<Object: Equatable> {
     ///     when right-clicking on a table row
     /// - parameter table: the table to apply this configuration to. If not specified, 
     ///     will create a new one
-    /// - allowMultipleSelection: whether multiple rows can be selected in the table
+    /// - parameter allowMultipleSelection: whether multiple rows can be selected in the table
     
     public init<Objects: Collection>(initialObjects: Objects,
                 columns: [ColumnDefinition<Object>],
@@ -64,7 +64,6 @@ public class EasyTableSource<Object: Equatable> {
             columns: columns,
             contextMenuOperations: contextMenuOperations,
             table: table,
-            allowMultipleSelection: allowMultipleSelection,
             selectionCallback: selectionCallback
         )
         
@@ -158,20 +157,6 @@ extension EasyTableSource {
             indexesToUse = selectedIndex.map { $0 }
         }
         return indexesToUse.flatMap(self.dataSource.value(row:))
-    }
-}
-
-/// Contextual operations to perform on an object
-public struct ObjectOperation<Object> {
-    
-    public let label: String
-    public let action: ([Object])->()
-    public let needsConfirmation: Bool
-    
-    public init(label: String, needsConfirmation: Bool = false, action: @escaping ([Object])->()) {
-        self.label = label
-        self.action = action
-        self.needsConfirmation = needsConfirmation
     }
 }
 
