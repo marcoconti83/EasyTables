@@ -94,7 +94,7 @@ class TableViewController: NSViewController {
                 })
             ],
             table: table,
-            allowMultipleSelection: true,
+            selectionModel: .multipleCheckbox,
             selectionCallback: {
                 /// Just print out something when selected
                 print("Selection changed:")

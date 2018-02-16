@@ -17,6 +17,7 @@
 		5415A6BD1F3F2396000FF9BB /* NSTableView+Easy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5415A6BC1F3F2396000FF9BB /* NSTableView+Easy.swift */; };
 		542578E81F6B1BD700FE6DA8 /* Cartography.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 542578E61F6B1BD300FE6DA8 /* Cartography.framework */; };
 		542578E91F6B1CA500FE6DA8 /* Cartography.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 542578E61F6B1BD300FE6DA8 /* Cartography.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5450685F203C02A600855939 /* SelectedObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5450685E203C02A600855939 /* SelectedObjects.swift */; };
 		54CEC1D01F21D4DE00FA3BC6 /* EasyTables.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54CEC1C61F21D4DE00FA3BC6 /* EasyTables.framework */; };
 		54CEC1D51F21D4DE00FA3BC6 /* EasyTablesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CEC1D41F21D4DE00FA3BC6 /* EasyTablesTests.swift */; };
 		54CEC1D71F21D4DE00FA3BC6 /* EasyTables.h in Headers */ = {isa = PBXBuildFile; fileRef = 54CEC1C91F21D4DE00FA3BC6 /* EasyTables.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -31,6 +32,7 @@
 		54DBCE9220363BF0001D86DF /* 3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 54DBCE8E20363BF0001D86DF /* 3.jpg */; };
 		54DBCE9420363C25001D86DF /* RandomImageDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DBCE9320363C25001D86DF /* RandomImageDirectory.swift */; };
 		54DBCE962036468A001D86DF /* ObjectOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DBCE952036468A001D86DF /* ObjectOperation.swift */; };
+		54DBCE98203646F7001D86DF /* SelectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DBCE97203646F7001D86DF /* SelectionModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +68,9 @@
 		542578E21F6B18D800FE6DA8 /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 		542578E31F6B18D800FE6DA8 /* Cartfile.resolved */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile.resolved; sourceTree = "<group>"; };
 		542578E61F6B1BD300FE6DA8 /* Cartography.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cartography.framework; path = Carthage/Build/Mac/Cartography.framework; sourceTree = "<group>"; };
+		5450685E203C02A600855939 /* SelectedObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedObjects.swift; sourceTree = "<group>"; };
+		5457D1722036BD01006028A0 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		5457D1732036BD01006028A0 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		54CEC1C61F21D4DE00FA3BC6 /* EasyTables.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EasyTables.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		54CEC1C91F21D4DE00FA3BC6 /* EasyTables.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EasyTables.h; sourceTree = "<group>"; };
 		54CEC1CA1F21D4DE00FA3BC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -86,6 +91,7 @@
 		54DBCE8E20363BF0001D86DF /* 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.jpg; sourceTree = "<group>"; };
 		54DBCE9320363C25001D86DF /* RandomImageDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomImageDirectory.swift; sourceTree = "<group>"; };
 		54DBCE952036468A001D86DF /* ObjectOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectOperation.swift; sourceTree = "<group>"; };
+		54DBCE97203646F7001D86DF /* SelectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +136,8 @@
 		54CEC1BC1F21D4DE00FA3BC6 = {
 			isa = PBXGroup;
 			children = (
+				5457D1722036BD01006028A0 /* LICENSE */,
+				5457D1732036BD01006028A0 /* README.md */,
 				542578E21F6B18D800FE6DA8 /* Cartfile */,
 				542578E31F6B18D800FE6DA8 /* Cartfile.resolved */,
 				5415A6A91F3F0020000FF9BB /* Frameworks */,
@@ -156,6 +164,8 @@
 				54CEC1C91F21D4DE00FA3BC6 /* EasyTables.h */,
 				54CEC1CA1F21D4DE00FA3BC6 /* Info.plist */,
 				54CEC20D1F21D6D900FA3BC6 /* EasyTableSource.swift */,
+				54DBCE97203646F7001D86DF /* SelectionModel.swift */,
+				5450685E203C02A600855939 /* SelectedObjects.swift */,
 				54DBCE952036468A001D86DF /* ObjectOperation.swift */,
 				540403391F67B669000A7C79 /* ColumnDefinition.swift */,
 				54CEC20F1F21D85D00FA3BC6 /* GenericTableDataSource.swift */,
@@ -350,10 +360,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5450685F203C02A600855939 /* SelectedObjects.swift in Sources */,
 				54DBCE962036468A001D86DF /* ObjectOperation.swift in Sources */,
 				5404033A1F67B669000A7C79 /* ColumnDefinition.swift in Sources */,
 				5415A6BD1F3F2396000FF9BB /* NSTableView+Easy.swift in Sources */,
 				54CEC2101F21D85D00FA3BC6 /* GenericTableDataSource.swift in Sources */,
+				54DBCE98203646F7001D86DF /* SelectionModel.swift in Sources */,
 				5415A6B81F3F0FB5000FF9BB /* EasyTableSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

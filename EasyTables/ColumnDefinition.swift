@@ -50,16 +50,19 @@ public enum ColumnWidth {
 public struct ColumnDefinition<Object> {
     
     /// Name of the column
-    public var name: String
+    public let name: String
     /// Derive the value to display from the object
-    public var value: (Object)->(Any)
+    public let value: (Object)->(Any)
     /// Comparison operator
-    public var comparison: (Object, Object)->ComparisonResult
+    public let comparison: (Object, Object)->ComparisonResult
     /// Witdh of the column
-    public var width: ColumnWidth
+    public let width: ColumnWidth
     /// Alignment
-    public var alignment: NSTextAlignment
-    
+    public let alignment: NSTextAlignment
+    /// Internal ID
+    private let generatedID: UUID = UUID()
+    /// Column identifier
+    let identifier: String
     
     public init(name: String,
                 width: ColumnWidth = .M,
@@ -67,6 +70,7 @@ public struct ColumnDefinition<Object> {
                 comparison: ((Object, Object)->ComparisonResult)? = nil,
                 value: @escaping (Object)->(Any)
                 ) {
+        self.identifier = (name + "_" + self.generatedID.uuidString).lowercased()
         self.name = name
         self.value = value
         self.width = width

@@ -46,22 +46,36 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
         }
     }
     
+    /// List of objects currently selected with checkbox
+    var checkboxSelected = SelectedObjects<Object>()
+    
+    /// Checkbox selection change listener
+    private var checkboxSelectionListenerToken: Any? = nil
+    
+    /// Selection model for the table
+    let selectionModel: SelectionModel
+    
     init(initialObjects: [Object],
          columns: [ColumnDefinition<Object>],
          contextMenuOperations: [ObjectOperation<Object>] = [],
          table: NSTableView,
+         selectionModel: SelectionModel,
          selectionCallback: @escaping ([Object])->(Void) = { _ in }
         ) {
         self.filter = nil
         self.table = table
-        var columnsLookup: [String: ColumnDefinition<Object>] = [:]
-        columns.forEach {
-            columnsLookup[$0.name.lowercased()] = $0
-        }
-        self.columns = columnsLookup
+        self.selectionModel = selectionModel
+        self.columns = Dictionary(
+            columns.map { ($0.identifier, $0) },
+            uniquingKeysWith: { a, b in a })
         self.selectionCallback = selectionCallback
         super.init()
-        self.update(newObjects: initialObjects)
+        self.checkboxSelectionListenerToken = self.checkboxSelected.addObserver {
+            [weak self] _ in
+            guard let `self` = self else { return }
+            self.selectionCallback(self.selectedItems)
+        }
+        self.update(newObjects: initialObjects, invokeSelectionCallback: false)
     }
     
     public func numberOfRows(in tableView: NSTableView) -> Int {
@@ -127,11 +141,17 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
         self.selectionCallback(self.selectedItems)
     }
     
+    public func selectionShouldChange(in tableView: NSTableView) -> Bool {
+        return !self.selectionModel.blocksNativeSelection
+    }
+    
     /// Update the objects, re-apply filter and sorting
-    func update(newObjects: [Object]) {
+    func update(newObjects: [Object], invokeSelectionCallback: Bool = true) {
         self.originalObjects = newObjects
         self.recalculateSource()
-        self.selectionCallback(self.selectedItems)
+        if invokeSelectionCallback {
+            self.selectionCallback(self.selectedItems)
+        }
     }
     
     /// Refilter original objects then sort them
@@ -198,14 +218,33 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
     public func select<SEQUENCE: Sequence>(items: SEQUENCE, extendSelection: Bool = false)
         where SEQUENCE.Iterator.Element == Object
     {
-        let indexes = items.flatMap { item in self.sortedObjects.index(where: { $0 == item }) }
-        self.table.selectRowIndexes(IndexSet(indexes), byExtendingSelection: extendSelection)
+        if self.selectionModel.requiresManualSelectionTracking {
+            if !extendSelection {
+                self.checkboxSelected.setSelection(items)
+            } else {
+                self.checkboxSelected.select(items)
+            }
+            self.table.reloadData()
+        } else {
+            let indexes = items.flatMap { item in self.sortedObjects.index(where: { $0 == item }) }
+            self.table.selectRowIndexes(IndexSet(indexes), byExtendingSelection: extendSelection)
+        }
     }
     
     /// The items currently selected in the table
     public var selectedItems: [Object] {
-        return self.table.selectedRowIndexes.map {
-            self.sortedObjects[$0]
+        if self.selectionModel.requiresManualSelectionTracking {
+            return self.checkboxSelected.selectedObjects
+        } else {
+            return self.table.selectedRowIndexes.map {
+                self.sortedObjects[$0]
+            }
         }
+    }
+    
+    /// Whether an object is selected
+    /// - note: this will cause two linear scans of the elements
+    func isSelected(_ object: Object) -> Bool {
+        return self.selectedItems.contains(object)
     }
 }

@@ -30,9 +30,9 @@ let TextCellViewIdentifier = "EasyDialogs_TextCellViewIdentifier"
 /// At initialization, it is associated with a specific instance of NSTableView
 /// and will create the necessary columns on that NSTableView
 public class EasyTableSource<Object: Equatable> {
-    
+        
     /// Internal data source associated with the table
-    public let dataSource: GenericTableDataSource<Object>
+    private(set) public var dataSource: GenericTableDataSource<Object>! = nil
     
     public var table: NSTableView {
         return self.dataSource.table
@@ -48,34 +48,31 @@ public class EasyTableSource<Object: Equatable> {
     ///     when right-clicking on a table row
     /// - parameter table: the table to apply this configuration to. If not specified, 
     ///     will create a new one
-    /// - parameter allowMultipleSelection: whether multiple rows can be selected in the table
+    /// - parameter selectionModel: whether multiple rows can be selected in the table
+    /// - parameter selectionCallback: callback invoked when the selection changes
     
     public init<Objects: Collection>(initialObjects: Objects,
                 columns: [ColumnDefinition<Object>],
                 contextMenuOperations: [ObjectOperation<Object>],
                 table: NSTableView? = nil,
-                allowMultipleSelection: Bool,
-                selectionCallback: @escaping ([Object])->(Void))
+                selectionModel: SelectionModel = .singleNative,
+                selectionCallback: (([Object])->(Void))?)
         where Objects.Iterator.Element == Object
     {
+        let columns = (selectionModel.requiresCheckboxColumn ? [self.checkboxColumn] : []) + columns
         let table = table ?? NSTableView()
         self.dataSource = GenericTableDataSource(
             initialObjects: Array(initialObjects),
             columns: columns,
             contextMenuOperations: contextMenuOperations,
             table: table,
-            selectionCallback: selectionCallback
+            selectionModel: selectionModel,
+            selectionCallback: selectionCallback ?? { _ in }
         )
         
         table.dataSource = self.dataSource
         table.delegate = self.dataSource
-        
-        var columnsLookup: [String: ColumnDefinition<Object>] = [:]
-        columns.forEach {
-            columnsLookup[$0.name.lowercased()] = $0
-        }
-        
-        self.setupTable(columns: columns, multiSelection: allowMultipleSelection)
+        self.setupTable(columns: columns, selectionModel: selectionModel)
         self.setupMenu(operations: contextMenuOperations)
     }
     
@@ -95,21 +92,21 @@ extension EasyTableSource {
     /// Sets up table columns and selection methods
     fileprivate func setupTable(
         columns: [ColumnDefinition<Object>],
-        multiSelection: Bool)
+        selectionModel: SelectionModel)
     {
         let preColumns = self.table.tableColumns
         preColumns.forEach {
             self.table.removeTableColumn($0)
         }
-                
+        
         columns.forEach { cdef in
             let column = NSTableColumn()
             column.title = cdef.name
-            column.identifier = NSUserInterfaceItemIdentifier(rawValue: cdef.name.lowercased())
+            column.identifier = NSUserInterfaceItemIdentifier(rawValue: cdef.identifier)
             column.isEditable = false
             column.minWidth = cdef.width.width
             column.maxWidth = cdef.width.width * 2
-            column.sortDescriptorPrototype = NSSortDescriptor(key: column.title, ascending: false) {
+            column.sortDescriptorPrototype = NSSortDescriptor(key: cdef.identifier, ascending: false) {
                 let value1 = cdef.value($0 as! Object)
                 let value2 = cdef.value($1 as! Object)
                 return "\(value1)".compare("\(value2)")
@@ -117,10 +114,7 @@ extension EasyTableSource {
             table.addTableColumn(column)
         }
         
-        self.table.allowsEmptySelection = true
-        self.table.allowsColumnSelection = false
-        self.table.allowsTypeSelect = true
-        self.table.allowsMultipleSelection = multiSelection
+        selectionModel.configureTableSelectionProperties(self.table)
     }
     
     /// Sets up the contextual menu for the table
@@ -145,18 +139,34 @@ extension EasyTableSource {
         self.table.menu = menu
     }
     
+    private var checkboxColumn: ColumnDefinition<Object> {
+        return ColumnDefinition(name: "✅",
+                                width: .custom(10),
+                                alignment: .center)
+        { obj in
+            let checkbox = ClosureButton()
+            checkbox.closure =  { [weak self, weak checkbox] _ in
+                guard let `self` = self, let checkbox = checkbox else { return }
+                let isSelected = checkbox.state == NSControl.StateValue.on
+                self.dataSource.checkboxSelected[obj] = isSelected
+            }
+            checkbox.setButtonType(.switch)
+            checkbox.title = ""
+            checkbox.state = self.dataSource.isSelected(obj) ? NSControl.StateValue.on : NSControl.StateValue.off
+            return checkbox
+        }
+    }
+    
     /// Objects that should be affected by a contextual operation
     fileprivate var targetObjectsForContextualOperation: [Object] {
-        let selectedIndex = self.dataSource.table.selectedRowIndexes
-        let clickedIndex = self.dataSource.table.clickedRow
+        let selectedObjects = self.dataSource.selectedItems // TODO change to objs
+        let clickedObject = self.dataSource.value(row: self.dataSource.table.clickedRow)
         
-        let indexesToUse: [Int]
-        if clickedIndex != -1 && !selectedIndex.contains(clickedIndex) {
-             indexesToUse = [clickedIndex]
+        if let clicked = clickedObject, !selectedObjects.contains(clicked) {
+            return [clicked]
         } else {
-            indexesToUse = selectedIndex.map { $0 }
+            return selectedObjects
         }
-        return indexesToUse.flatMap(self.dataSource.value(row:))
     }
 }
 
