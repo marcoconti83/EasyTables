@@ -64,4 +64,6 @@ class ViewController: NSViewController {
 The result of this setup is shown in the following screenshot:
 ![Screenshot of table](https://github.com/marcoconti83/EasyTables/blob/master/docs/table-example.png?raw=true)
 
+## Credits
+The images used in the example are from [Unsplash](https://unsplash.com).
 
