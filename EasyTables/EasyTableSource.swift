@@ -56,7 +56,7 @@ public class EasyTableSource<Object: Equatable> {
                 contextMenuOperations: [ObjectOperation<Object>],
                 table: NSTableView? = nil,
                 selectionModel: SelectionModel = .singleNative,
-                selectionCallback: (([Object])->(Void))?)
+                selectionCallback: (([Object])->(Void))? = nil)
         where Objects.Iterator.Element == Object
     {
         let columns = (selectionModel.requiresCheckboxColumn ? [self.checkboxColumn] : []) + columns
@@ -159,7 +159,7 @@ extension EasyTableSource {
     
     /// Objects that should be affected by a contextual operation
     fileprivate var targetObjectsForContextualOperation: [Object] {
-        let selectedObjects = self.dataSource.selectedItems // TODO change to objs
+        let selectedObjects = self.dataSource.selectedItems
         let clickedObject = self.dataSource.value(row: self.dataSource.table.clickedRow)
         
         if let clicked = clickedObject, !selectedObjects.contains(clicked) {
