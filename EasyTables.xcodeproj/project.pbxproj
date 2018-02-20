@@ -71,6 +71,7 @@
 		5450685E203C02A600855939 /* SelectedObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedObjects.swift; sourceTree = "<group>"; };
 		5457D1722036BD01006028A0 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		5457D1732036BD01006028A0 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		5491FCCC203EE46C009ACC0A /* THIRD_PARTY_LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = THIRD_PARTY_LICENSE; sourceTree = "<group>"; };
 		54CEC1C61F21D4DE00FA3BC6 /* EasyTables.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EasyTables.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		54CEC1C91F21D4DE00FA3BC6 /* EasyTables.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EasyTables.h; sourceTree = "<group>"; };
 		54CEC1CA1F21D4DE00FA3BC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -136,6 +137,7 @@
 		54CEC1BC1F21D4DE00FA3BC6 = {
 			isa = PBXGroup;
 			children = (
+				5491FCCC203EE46C009ACC0A /* THIRD_PARTY_LICENSE */,
 				5457D1722036BD01006028A0 /* LICENSE */,
 				5457D1732036BD01006028A0 /* README.md */,
 				542578E21F6B18D800FE6DA8 /* Cartfile */,
