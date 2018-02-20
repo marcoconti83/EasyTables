@@ -119,6 +119,7 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
             field.isBezeled = false
             field.isBordered = false
             field.drawsBackground = false
+            field.usesSingleLineMode = true
             return field
             }()
         if let attributed = value as? NSAttributedString {
