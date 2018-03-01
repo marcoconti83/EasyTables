@@ -56,7 +56,6 @@ class TableViewController: NSViewController {
         
         let (scroll, table) = NSTableView.inScrollView()
         self.createLayoutConstraints(table: scroll, button1: selectButton, button2: filterButton)
-        
         self.createTableSource(for: table)
 
     }
@@ -74,7 +73,7 @@ class TableViewController: NSViewController {
             ],
             contextMenuOperations: [
                 // Remove object from the table
-                ObjectOperation(label: "Remove", action: {
+                ObjectOperation(label: "Remove", needsConfirmation: true, action: {
                     [weak self] (items: [String]) -> Void in
                     guard let `self` = self else { return }
                     items.forEach {
@@ -124,7 +123,6 @@ class TableViewController: NSViewController {
             table.top == b1.bottom + space
         }
     }
-    
 }
 
 extension String {
@@ -134,3 +132,5 @@ extension String {
         return NSAttributedString(string: self, attributes: [NSAttributedStringKey.font: font])
     }
 }
+
+

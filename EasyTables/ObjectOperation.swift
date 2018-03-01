@@ -35,3 +35,4 @@ public struct ObjectOperation<Object> {
         self.needsConfirmation = needsConfirmation
     }
 }
+

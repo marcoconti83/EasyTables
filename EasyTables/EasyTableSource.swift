@@ -38,6 +38,8 @@ public class EasyTableSource<Object: Equatable> {
         return self.dataSource.table
     }
     
+    public typealias ConfirmationCallback = (Bool)->()
+    
     /// Creates a table configuration and applies it to a table
     /// The configuration needs to be retained as long as the table
     /// is retained
@@ -56,6 +58,7 @@ public class EasyTableSource<Object: Equatable> {
                 contextMenuOperations: [ObjectOperation<Object>],
                 table: NSTableView? = nil,
                 selectionModel: SelectionModel = .singleNative,
+                operationConfirmationCallback: @escaping (ConfirmationCallback, String)->() = ConfirmationAlert.ask,
                 selectionCallback: (([Object])->(Void))? = nil)
         where Objects.Iterator.Element == Object
     {
@@ -72,8 +75,10 @@ public class EasyTableSource<Object: Equatable> {
         
         table.dataSource = self.dataSource
         table.delegate = self.dataSource
-        self.setupTable(columns: columns, selectionModel: selectionModel)
-        self.setupMenu(operations: contextMenuOperations)
+        self.setupTable(columns: columns,
+                        selectionModel: selectionModel)
+        self.setupMenu(operations: contextMenuOperations,
+                       operationConfirmationCallback: operationConfirmationCallback)
     }
     
     /// Content of the table
@@ -119,7 +124,8 @@ extension EasyTableSource {
     
     /// Sets up the contextual menu for the table
     fileprivate func setupMenu(
-        operations: [ObjectOperation<Object>]
+        operations: [ObjectOperation<Object>],
+        operationConfirmationCallback: @escaping (ConfirmationCallback, String)->()
         ) {
         guard !operations.isEmpty else {
             self.table.menu = nil
@@ -131,7 +137,15 @@ extension EasyTableSource {
                 guard let `self` = self else { return }
                 let selectedObjects = self.targetObjectsForContextualOperation
                 guard !selectedObjects.isEmpty else { return }
-                operation.action(selectedObjects)
+                if operation.needsConfirmation {
+                    operationConfirmationCallback({
+                        if $0 {
+                            operation.action(selectedObjects)
+                        }
+                    }, operation.label)
+                } else {
+                    operation.action(selectedObjects)
+                }
             }
             menu.addItem(item)
             item.isEnabled = true
@@ -182,5 +196,22 @@ extension ComparisonResult {
         case .orderedSame:
             return .orderedSame
         }
+    }
+}
+
+
+public struct ConfirmationAlert {
+    static func OKCancel(message: String) -> Bool {
+        let alert = NSAlert()
+        alert.messageText = message
+        alert.alertStyle = .warning
+        alert.addButton(withTitle: "Yes")
+        alert.addButton(withTitle: "Cancel")
+        return alert.runModal() == .alertFirstButtonReturn
+    }
+    
+    public static func ask(callback: (Bool)->(), operation: String) {
+        let response = OKCancel(message: "\(operation)\nAre you sure?")
+        callback(response)
     }
 }
