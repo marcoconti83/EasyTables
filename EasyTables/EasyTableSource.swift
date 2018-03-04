@@ -116,10 +116,19 @@ extension EasyTableSource {
                 let value2 = cdef.value($1 as! Object)
                 return "\(value1)".compare("\(value2)")
             }
-            table.addTableColumn(column)
+            self.table.addTableColumn(column)
         }
-        
         selectionModel.configureTableSelectionProperties(self.table)
+        self.setInitialSorting(selectionModel: selectionModel)
+    }
+    
+    /// Set the initial sort descriptor for the table
+    fileprivate func setInitialSorting(selectionModel: SelectionModel) {
+        let initialSortingIndex = selectionModel.requiresCheckboxColumn ? 1 : 0
+        if initialSortingIndex < self.table.tableColumns.count {
+            let sortingColumn = self.table.tableColumns[initialSortingIndex]
+            self.table.sortDescriptors = [sortingColumn.sortDescriptorPrototype].flatMap { $0 }
+        }
     }
     
     /// Sets up the contextual menu for the table
