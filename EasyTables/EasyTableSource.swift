@@ -52,12 +52,15 @@ public class EasyTableSource<Object: Equatable> {
     ///     will create a new one
     /// - parameter selectionModel: whether multiple rows can be selected in the table
     /// - parameter selectionCallback: callback invoked when the selection changes
+    /// - parameter autosortByFirstColumn: if true, it will sort the table by the first
+    ///     column by default
     
     public init<Objects: Collection>(initialObjects: Objects,
                 columns: [ColumnDefinition<Object>],
                 contextMenuOperations: [ObjectOperation<Object>],
                 table: NSTableView? = nil,
                 selectionModel: SelectionModel = .singleNative,
+                autosortByFirstColumn: Bool = true,
                 operationConfirmationCallback: @escaping (ConfirmationCallback, String)->() = ConfirmationAlert.ask,
                 selectionCallback: (([Object])->(Void))? = nil)
         where Objects.Iterator.Element == Object
@@ -76,7 +79,8 @@ public class EasyTableSource<Object: Equatable> {
         table.dataSource = self.dataSource
         table.delegate = self.dataSource
         self.setupTable(columns: columns,
-                        selectionModel: selectionModel)
+                        selectionModel: selectionModel,
+                        autoSort: autosortByFirstColumn)
         self.setupMenu(operations: contextMenuOperations,
                        operationConfirmationCallback: operationConfirmationCallback)
     }
@@ -97,7 +101,8 @@ extension EasyTableSource {
     /// Sets up table columns and selection methods
     fileprivate func setupTable(
         columns: [ColumnDefinition<Object>],
-        selectionModel: SelectionModel)
+        selectionModel: SelectionModel,
+        autoSort: Bool)
     {
         let preColumns = self.table.tableColumns
         preColumns.forEach {
@@ -119,7 +124,9 @@ extension EasyTableSource {
             self.table.addTableColumn(column)
         }
         selectionModel.configureTableSelectionProperties(self.table)
-        self.setInitialSorting(selectionModel: selectionModel)
+        if autoSort {
+            self.setInitialSorting(selectionModel: selectionModel)
+        }
     }
     
     /// Set the initial sort descriptor for the table
