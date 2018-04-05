@@ -120,6 +120,7 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
             field.isBordered = false
             field.drawsBackground = false
             field.usesSingleLineMode = true
+            field.cell?.lineBreakMode = .byClipping
             return field
             }()
         if let attributed = value as? NSAttributedString {
@@ -127,7 +128,7 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
         } else if let bool = value as? Bool {
             field.stringValue = bool ? "✅" : "❌"
         } else {
-            field.stringValue = "\(value)" //String(describing: value)
+            field.stringValue = "\(value)"
         }
         field.isEditable = false
         return field
