@@ -66,7 +66,7 @@ class TableViewController: NSViewController {
             initialObjects: self.objects,
             columns: [
                 ColumnDefinition(name: "Word", value: { $0.boldAttributed }),
-                ColumnDefinition(name: "Length", width: .S, value: { $0.characters.count }),
+                ColumnDefinition(name: "Length", width: .S, value: { $0.count }),
                 ColumnDefinition(name: "Image", width: .S, value: { imageDirectory.image(for: $0) as Any } ),
                 ColumnDefinition(name: "Starts with C", width: .S, value: { $0.starts(with: "C") }),
                 ColumnDefinition(name: "Control", width: .S, value: { let b = NSButton(); b.title = $0; return b })

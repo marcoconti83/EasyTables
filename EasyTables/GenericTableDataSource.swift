@@ -179,7 +179,7 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
     }
     /// Resort the items according to description
     private func resortItems() {
-        let sortingFunctions = self.table.sortDescriptors.flatMap {
+        let sortingFunctions = self.table.sortDescriptors.compactMap {
             descriptor -> ((Object, Object)->ComparisonResult)? in
             guard let title = descriptor.key,
                 let column = self.columns[title.lowercased()]
@@ -228,7 +228,7 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
             }
             self.table.reloadData()
         } else {
-            let indexes = items.flatMap { item in self.sortedObjects.index(where: { $0 == item }) }
+            let indexes = items.compactMap { item in self.sortedObjects.index(where: { $0 == item }) }
             self.table.selectRowIndexes(IndexSet(indexes), byExtendingSelection: extendSelection)
         }
     }

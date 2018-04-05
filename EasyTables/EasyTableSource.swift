@@ -134,7 +134,7 @@ extension EasyTableSource {
         let initialSortingIndex = selectionModel.requiresCheckboxColumn ? 1 : 0
         if initialSortingIndex < self.table.tableColumns.count {
             let sortingColumn = self.table.tableColumns[initialSortingIndex]
-            self.table.sortDescriptors = [sortingColumn.sortDescriptorPrototype].flatMap { $0 }
+            self.table.sortDescriptors = [sortingColumn.sortDescriptorPrototype].compactMap { $0 }
         }
     }
     
