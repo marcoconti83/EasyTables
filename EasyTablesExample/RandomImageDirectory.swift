@@ -32,7 +32,7 @@ class RandomImageDirectory {
         let bundle = Bundle(for: type(of: self))
         images = (1...4).map { "\($0).jpg" }
             .map {
-                bundle.image(forResource: NSImage.Name(rawValue: $0))
+                bundle.image(forResource: $0)
             }
     }
     

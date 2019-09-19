@@ -33,6 +33,7 @@
 		54DBCE9420363C25001D86DF /* RandomImageDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DBCE9320363C25001D86DF /* RandomImageDirectory.swift */; };
 		54DBCE962036468A001D86DF /* ObjectOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DBCE952036468A001D86DF /* ObjectOperation.swift */; };
 		54DBCE98203646F7001D86DF /* SelectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DBCE97203646F7001D86DF /* SelectionModel.swift */; };
+		A9311BC72333EB6700A83461 /* Cartfile.private in Resources */ = {isa = PBXBuildFile; fileRef = A9311BC62333EB6600A83461 /* Cartfile.private */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +94,7 @@
 		54DBCE9320363C25001D86DF /* RandomImageDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomImageDirectory.swift; sourceTree = "<group>"; };
 		54DBCE952036468A001D86DF /* ObjectOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectOperation.swift; sourceTree = "<group>"; };
 		54DBCE97203646F7001D86DF /* SelectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionModel.swift; sourceTree = "<group>"; };
+		A9311BC62333EB6600A83461 /* Cartfile.private */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile.private; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +143,7 @@
 				5457D1722036BD01006028A0 /* LICENSE */,
 				5457D1732036BD01006028A0 /* README.md */,
 				542578E21F6B18D800FE6DA8 /* Cartfile */,
+				A9311BC62333EB6600A83461 /* Cartfile.private */,
 				542578E31F6B18D800FE6DA8 /* Cartfile.resolved */,
 				5415A6A91F3F0020000FF9BB /* Frameworks */,
 				54CEC1C81F21D4DE00FA3BC6 /* EasyTables */,
@@ -285,7 +288,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = com.marco83;
 				TargetAttributes = {
 					54CEC1C51F21D4DE00FA3BC6 = {
@@ -309,7 +312,7 @@
 			};
 			buildConfigurationList = 54CEC1C01F21D4DE00FA3BC6 /* Build configuration list for PBXProject "EasyTables" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -332,6 +335,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A9311BC72333EB6700A83461 /* Cartfile.private in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,6 +420,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -468,6 +473,7 @@
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -477,6 +483,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -521,6 +528,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -549,7 +557,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -575,7 +582,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.marco83.EasyTables;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -589,7 +595,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.marco83.EasyTablesTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -603,7 +608,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.marco83.EasyTablesTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -621,7 +625,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.marco83.EasyTablesExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -639,7 +642,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.marco83.EasyTablesExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

@@ -129,7 +129,7 @@ extension String {
     
     var boldAttributed: NSAttributedString {
         let font = NSFont.boldSystemFont(ofSize: 0)
-        return NSAttributedString(string: self, attributes: [NSAttributedStringKey.font: font])
+        return NSAttributedString(string: self, attributes: [NSAttributedString.Key.font: font])
     }
 }
 

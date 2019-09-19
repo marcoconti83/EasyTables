@@ -211,7 +211,7 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
         
     /// Select the item, if present. This causes a linear scan of the table (`O(n)`).
     public func select(item: Object, extendSelection: Bool = false) {
-        guard let index = self.sortedObjects.index(where: { $0 == item }) else { return }
+        guard let index = self.sortedObjects.firstIndex(where: { $0 == item }) else { return }
         self.table.selectRowIndexes(IndexSet(integersIn: index...index), byExtendingSelection: extendSelection)
     }
     
@@ -228,7 +228,7 @@ public class GenericTableDataSource<Object: Equatable>: NSObject, NSTableViewDel
             }
             self.table.reloadData()
         } else {
-            let indexes = items.compactMap { item in self.sortedObjects.index(where: { $0 == item }) }
+            let indexes = items.compactMap { item in self.sortedObjects.firstIndex(where: { $0 == item }) }
             self.table.selectRowIndexes(IndexSet(indexes), byExtendingSelection: extendSelection)
         }
     }

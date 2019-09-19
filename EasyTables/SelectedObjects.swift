@@ -59,7 +59,7 @@ class SelectedObjects<Object: Equatable>: Sequence {
     /// Checks whether the given object is selected
     func isSelected(_ object: Object) -> Bool {
         // linear scan! can it be made faster without hashable?
-        return self.selectedObjects.index(of: object) != nil
+        return self.selectedObjects.firstIndex(of: object) != nil
     }
     
     /// Adds one object to the selection
@@ -75,7 +75,7 @@ class SelectedObjects<Object: Equatable>: Sequence {
     
     /// Remove one object from the selection
     func deselect(_ object: Object) {
-        guard let index = self.selectedObjects.index(of: object) else { return }
+        guard let index = self.selectedObjects.firstIndex(of: object) else { return }
         self.selectedObjects.remove(at: index)
     }
     
